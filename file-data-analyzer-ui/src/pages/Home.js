@@ -36,8 +36,8 @@ const Home = () => {
             </Sider>
             <Content
               style={{
-                padding: "0 2rem",
-                minHeight: 280,
+                padding: "1rem 2rem",
+                minHeight: 500,
               }}
             >
               Content
@@ -67,13 +67,19 @@ const Container = styled.div`
         margin: 2rem 0;
         padding: 2rem 0;
         .sider {
-          height: 100%;
+          min-height: 100%;
           border-right: 0.15rem solid rgba(0, 0, 0, 0.3);
+          .ant-layout-sider-children {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
         }
       }
     }
     .footer {
       text-align: center;
+      font-weight: 700;
     }
   }
 `;

@@ -30,7 +30,6 @@ const FileSteps = () => {
     <Container>
       <Steps
         className="steps"
-        size="small"
         current={currentStep}
         onChange={onStepChange}
         percent={stepProgress}
@@ -42,9 +41,11 @@ const FileSteps = () => {
 };
 
 const Container = styled.div`
-  height: 100%;
   .steps {
     padding: 1rem;
+    .ant-steps-item-title {
+      font-weight: 700;
+    }
   }
 `;
 
