@@ -4,7 +4,7 @@ import styled from "styled-components";
 import HeaderTitle from "../components/HeaderTitle";
 import FileSteps from "../components/FileSteps";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content, Sider, Footer } = Layout;
 
 const Home = () => {
   const {
@@ -44,6 +44,10 @@ const Home = () => {
             </Content>
           </Layout>
         </Content>
+        <Footer className="footer">
+          Crafted with {"\uD83D\uDC9C"} by{" "}
+          <a href="https://github.com/RaguRamanTB">Raguraman</a>
+        </Footer>
       </Layout>
     </Container>
   );
@@ -67,6 +71,9 @@ const Container = styled.div`
           border-right: 0.15rem solid rgba(0, 0, 0, 0.3);
         }
       }
+    }
+    .footer {
+      text-align: center;
     }
   }
 `;
