@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Steps } from "antd";
 
+import { setCurrentStep } from "../reducers/stepSlice";
+
 const FileSteps = () => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [stepProgress, setStepProgress] = useState(0);
+  const step = useSelector((state) => state.step);
+  const dispatch = useDispatch();
 
   const items = [
     {
@@ -22,17 +25,16 @@ const FileSteps = () => {
   ];
 
   const onStepChange = (value) => {
-    console.log("onChange:", value);
-    setCurrentStep(value);
+    dispatch(setCurrentStep(value));
   };
 
   return (
     <Container>
       <Steps
         className="steps"
-        current={currentStep}
+        current={step.currentStep}
         onChange={onStepChange}
-        percent={stepProgress}
+        percent={step.stepProgress}
         direction="vertical"
         items={items}
       />

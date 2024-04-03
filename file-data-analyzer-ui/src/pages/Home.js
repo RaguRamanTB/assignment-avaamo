@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Layout, theme } from "antd";
 import styled from "styled-components";
 import HeaderTitle from "../components/HeaderTitle";
@@ -11,6 +12,8 @@ const Home = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const currentStep = useSelector((state) => state.step.currentStep);
 
   return (
     <Container>
@@ -41,7 +44,7 @@ const Home = () => {
                 minHeight: 300,
               }}
             >
-              <FileUpload />
+              {currentStep === 0 && <FileUpload />}
             </Content>
           </Layout>
         </Content>
