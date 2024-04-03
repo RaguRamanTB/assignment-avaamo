@@ -5,6 +5,8 @@ import styled from "styled-components";
 import HeaderTitle from "../components/HeaderTitle";
 import FileSteps from "../components/FileSteps";
 import FileUpload from "../components/FileUpload";
+import FileAnalyzer from "../components/FileAnalyzer";
+import FileMasker from "../components/FileMasker";
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -45,6 +47,8 @@ const Home = () => {
               }}
             >
               {currentStep === 0 && <FileUpload />}
+              {currentStep === 1 && <FileAnalyzer />}
+              {currentStep === 2 && <FileMasker />}
             </Content>
           </Layout>
         </Content>
