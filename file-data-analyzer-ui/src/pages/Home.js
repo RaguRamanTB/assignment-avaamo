@@ -3,6 +3,7 @@ import { Layout, theme } from "antd";
 import styled from "styled-components";
 import HeaderTitle from "../components/HeaderTitle";
 import FileSteps from "../components/FileSteps";
+import FileUpload from "../components/FileUpload";
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -37,10 +38,10 @@ const Home = () => {
             <Content
               style={{
                 padding: "1rem 2rem",
-                minHeight: 500,
+                minHeight: 300,
               }}
             >
-              Content
+              <FileUpload />
             </Content>
           </Layout>
         </Content>

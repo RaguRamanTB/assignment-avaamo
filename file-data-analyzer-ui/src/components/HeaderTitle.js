@@ -8,7 +8,7 @@ const HeaderTitle = () => {
       <div className="logo">
         <img src={Logo} alt="logo" />
       </div>
-      <h2 className="title">File Data Analyzer & Marker</h2>
+      <h2 className="title">File Data Analyzer & Masker</h2>
     </Container>
   );
 };
