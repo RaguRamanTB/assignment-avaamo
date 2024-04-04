@@ -44,7 +44,7 @@ const FileUpload = () => {
 
   const props = {
     name: "file",
-    accept: ".txt,.doc,.docx",
+    accept: ".txt,.docx",
     multiple: true,
     action: apiRoutes.upload,
     onChange: handleFileChange,
@@ -64,7 +64,7 @@ const FileUpload = () => {
           Click or drag file to this area to upload
         </p>
         <p className="ant-upload-hint" style={{ marginTop: "0.2rem" }}>
-          We currently support .txt, .doc, .docx file formats.
+          We currently support .txt, .docx file formats.
         </p>
       </Dragger>
       <SelectedFiles />
