@@ -14,12 +14,24 @@ import { setAnalysisData } from "../reducers/analyticsSlice";
 
 const FileAnalyzer = () => {
   const files = useSelector((state) => state.files.files);
+  const analysisData = useSelector((state) => state.analytics.analysisData);
   const [loading, setLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(
+    files[0]?.response.file.filename
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchAnalysis = async () => {
       if (!files.length) {
+        return;
+      }
+      if (
+        Object.keys(analysisData).length &&
+        Object.keys(analysisData).every((key) =>
+          files.map((file) => file.response.file.filename).includes(key)
+        )
+      ) {
         return;
       }
       setLoading(true);
@@ -34,7 +46,7 @@ const FileAnalyzer = () => {
       dispatch(setAnalysisData(response.data.analysisData));
     };
     fetchAnalysis();
-  }, [files, dispatch]);
+  }, [files, analysisData, dispatch]);
 
   if (!files.length) {
     return (
@@ -56,10 +68,7 @@ const FileAnalyzer = () => {
   }
 
   const onChange = (value) => {
-    console.log(`selected ${value}`);
-  };
-  const onSearch = (value) => {
-    console.log("search:", value);
+    setSelectedFile(value);
   };
 
   const filterOption = (input, option) =>
@@ -87,19 +96,18 @@ const FileAnalyzer = () => {
               className="file-select"
               showSearch
               placeholder="Select a file"
-              defaultValue={files[0].uid}
+              defaultValue={files[0].response.file.filename}
               optionFilterProp="children"
               onChange={onChange}
-              onSearch={onSearch}
               filterOption={filterOption}
               options={files.map((file) => ({
-                value: file.uid,
+                value: file.response.file.filename,
                 label: file.name,
               }))}
             />
           </div>
           <div className="file-analyzer-content">
-            <DataTable />
+            <DataTable selectedFile={selectedFile} />
           </div>
         </AnalyzerContainer>
       )}

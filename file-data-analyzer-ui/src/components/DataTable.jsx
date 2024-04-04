@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const columns = [
   {
@@ -20,26 +21,36 @@ const columns = [
   },
 ];
 
-const data = [];
-for (let i = 0; i < 46; i++) {
-  data.push({
-    key: i,
-    word: `Edward King ${i}`,
-    count: 32,
-    meaning: `London, Park Lane no. ${i}`,
-  });
-}
+const DataTable = ({ selectedFile }) => {
+  const [data, setData] = useState([]);
+  const analysisData = useSelector((state) => state.analytics.analysisData);
 
-const DataTable = () => {
+  useEffect(() => {
+    if (!selectedFile) {
+      return;
+    }
+    const fileData = analysisData[selectedFile];
+    if (!fileData) {
+      return;
+    }
+    const words = Object.keys(fileData);
+    const tableData = words.map((word) => {
+      return {
+        key: word,
+        word,
+        count: fileData[word],
+        meaning: "Meaning",
+      };
+    });
+    setData(tableData);
+  }, [selectedFile, analysisData]);
+
   return (
     <Container>
       <Table
         className="data-table"
         columns={columns}
         dataSource={data}
-        pagination={{
-          pageSize: 15,
-        }}
         scroll={{
           y: 360,
         }}
