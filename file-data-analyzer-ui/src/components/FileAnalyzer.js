@@ -5,7 +5,7 @@ import exclamation from "../assets/lottie/exclamation.json";
 import styled from "styled-components";
 
 const FileAnalyzer = () => {
-  const files = useSelector((state) => state.files);
+  const files = useSelector((state) => state.files.files);
 
   if (!files.length) {
     return (

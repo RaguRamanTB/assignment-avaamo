@@ -1,45 +1,63 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 import styled from "styled-components";
+import { setFiles } from "../reducers/filesSlice";
+import SelectedFiles from "./SelectedFiles";
 
 const { Dragger } = Upload;
 
-const props = {
-  name: "file",
-  accept: ".txt,.doc,.docx,.pdf",
-  multiple: true,
-  action: "http://localhost:5000/upload",
-  onChange(info) {
+const FileUpload = () => {
+  const dispatch = useDispatch();
+
+  const handleFileChange = (info) => {
     const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
+    const files = info.fileList.map((file) => {
+      return {
+        uid: file.uid,
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        status: file.status,
+        lastModified: file.lastModified,
+        response: file.response,
+      };
+    });
     if (status === "done") {
+      dispatch(setFiles(files));
       message.success(`${info.file.name} file uploaded successfully.`);
     } else if (status === "error") {
+      dispatch(setFiles(files));
       message.error(`${info.file.name} file upload failed.`);
     }
-  },
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
+  };
 
-const FileUpload = () => {
+  const props = {
+    name: "file",
+    accept: ".txt,.doc,.docx,.pdf",
+    multiple: true,
+    action: "http://localhost:5000/upload",
+    onChange: handleFileChange,
+    onDrop(e) {
+      console.log("Dropped files", e.dataTransfer.files);
+    },
+  };
+
   return (
     <Container>
       <Dragger {...props}>
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
         </p>
-        <p className="ant-upload-text">
+        <p className="ant-upload-text" style={{ marginBottom: "0.2rem" }}>
           Click or drag file to this area to upload
         </p>
-        <p className="ant-upload-hint">
+        <p className="ant-upload-hint" style={{ marginTop: "0.2rem" }}>
           We currently support .txt, .pdf, .doc, .docx file formats.
         </p>
       </Dragger>
+      <SelectedFiles />
     </Container>
   );
 };

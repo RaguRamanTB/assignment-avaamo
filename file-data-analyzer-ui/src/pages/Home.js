@@ -42,7 +42,7 @@ const Home = () => {
             </Sider>
             <Content
               style={{
-                padding: "1rem 2rem",
+                padding: "0 2rem",
                 minHeight: 300,
               }}
             >
