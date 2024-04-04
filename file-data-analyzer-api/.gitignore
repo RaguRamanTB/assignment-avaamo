@@ -11,6 +11,9 @@ dist/
 # Environment variables
 .env
 
+# File Uploads
+uploads/
+
 # IDE files
 .vscode/
 .idea/
