@@ -9,7 +9,7 @@ const props = {
   name: "file",
   accept: ".txt,.doc,.docx,.pdf",
   multiple: true,
-  action: "",
+  action: "http://localhost:5000/upload",
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
@@ -25,6 +25,7 @@ const props = {
     console.log("Dropped files", e.dataTransfer.files);
   },
 };
+
 const FileUpload = () => {
   return (
     <Container>
