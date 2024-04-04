@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 import styled from "styled-components";
@@ -10,6 +10,7 @@ const { Dragger } = Upload;
 
 const FileUpload = () => {
   const dispatch = useDispatch();
+  const files = useSelector((state) => state.files.files);
 
   const handleFileChange = (info) => {
     const { status } = info.file;
@@ -33,12 +34,18 @@ const FileUpload = () => {
     }
   };
 
+  const handleFileRemove = (file) => {
+    const filteredFiles = files.filter((f) => f.uid !== file.uid);
+    dispatch(setFiles(filteredFiles));
+  };
+
   const props = {
     name: "file",
     accept: ".txt,.doc,.docx,.pdf",
     multiple: true,
     action: "http://localhost:5000/upload",
     onChange: handleFileChange,
+    onRemove: handleFileRemove,
     onDrop(e) {
       console.log("Dropped files", e.dataTransfer.files);
     },

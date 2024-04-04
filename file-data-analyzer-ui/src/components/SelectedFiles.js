@@ -1,5 +1,5 @@
-import { Divider } from "antd";
 import React from "react";
+import { Divider, List } from "antd";
 import { useSelector } from "react-redux";
 
 const SelectedFiles = () => {
@@ -8,15 +8,20 @@ const SelectedFiles = () => {
   return (
     files.length > 0 && (
       <div>
-        <Divider orientation="center">Selected Files</Divider>
-        <ol>
-          {files.map((file, index) => (
-            <li key={`${Date.now()}-${index}`}>
-              <h4 style={{ marginBottom: "0.2rem" }}>{file.name}</h4>
-              <p style={{ marginTop: "0.2rem" }}>Size: {file.size} bytes</p>
-            </li>
-          ))}
-        </ol>
+        <Divider orientation="center">{`Current selected files (${files.length})`}</Divider>
+        <List
+          size="small"
+          bordered
+          dataSource={files}
+          renderItem={(file) => (
+            <List.Item>
+              <List.Item.Meta
+                title={file.name}
+                description={`Size: ${file.size} bytes`}
+              />
+            </List.Item>
+          )}
+        />
       </div>
     )
   );
