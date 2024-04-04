@@ -15,22 +15,24 @@ const FileUpload = () => {
 
   const handleFileChange = (info) => {
     const { status } = info.file;
-    const files = info.fileList.map((file) => {
-      return {
-        uid: file.uid,
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        status: file.status,
-        lastModified: file.lastModified,
-        response: file.response,
-      };
-    });
+    const currentFiles = info.fileList
+      .filter((file) => file.status !== "error")
+      .map((file) => {
+        return {
+          uid: file.uid,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          status: file.status,
+          lastModified: file.lastModified,
+          response: file.response,
+        };
+      });
     if (status === "done") {
-      dispatch(setFiles(files));
+      dispatch(setFiles(currentFiles));
       message.success(`${info.file.name} file uploaded successfully.`);
     } else if (status === "error") {
-      dispatch(setFiles(files));
+      dispatch(setFiles(currentFiles));
       message.error(`${info.file.name} file upload failed.`);
     }
   };
