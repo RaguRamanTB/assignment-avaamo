@@ -13,7 +13,7 @@ const FileMasker = () => {
         <div className="no-files-lottie">
           <Lottie
             options={{
-              loop: true,
+              loop: false,
               autoplay: true,
               animationData: exclamation,
             }}
