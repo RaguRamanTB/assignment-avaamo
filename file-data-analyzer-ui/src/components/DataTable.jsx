@@ -8,6 +8,11 @@ import { dictionaryApi } from "../utils/apiRoutes";
 const DataTable = ({ selectedFile }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
+
   const analysisData = useSelector((state) => state.analytics.analysisData);
 
   const columns = [
@@ -59,6 +64,10 @@ const DataTable = ({ selectedFile }) => {
         synonym: "synonym",
       };
     });
+    setPagination({
+      current: 1,
+      pageSize: 10,
+    });
     setData(tableData);
     fetchMeanings(tableData.slice(0, 10), 0);
   }, [selectedFile, analysisData]);
@@ -89,6 +98,7 @@ const DataTable = ({ selectedFile }) => {
   };
 
   const handleTableChange = (pagination) => {
+    setPagination(pagination);
     const { current, pageSize } = pagination;
     const start = (current - 1) * pageSize;
     const end = start + pageSize;
@@ -102,6 +112,7 @@ const DataTable = ({ selectedFile }) => {
         className="data-table"
         columns={columns}
         dataSource={data}
+        pagination={pagination}
         scroll={{
           y: 360,
         }}
