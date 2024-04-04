@@ -20,9 +20,11 @@ const anaylyseFile = async (filename) => {
   } else {
     throw new Error("One of the files has an unsupported file type");
   }
-  const words = text.split(/\s+/);
+  const words = text.split(/[\s,]+/);
   const wordCounts = words.reduce((counts, word) => {
-    const cleanedWord = word.replace(/[^a-zA-Z]/g, "");
+    const cleanedWord = word
+      .replace(/^[^a-zA-Z]+|[^a-zA-Z]+$/g, "")
+      .toLowerCase();
     if (cleanedWord !== "" && cleanedWord.length > 1) {
       if (!counts[cleanedWord]) {
         counts[cleanedWord] = 1;
