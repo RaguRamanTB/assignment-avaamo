@@ -5,6 +5,7 @@ import { message, Upload } from "antd";
 import styled from "styled-components";
 import { setFiles } from "../reducers/filesSlice";
 import SelectedFiles from "./SelectedFiles";
+import { apiRoutes } from "../utils/apiRoutes";
 
 const { Dragger } = Upload;
 
@@ -43,7 +44,7 @@ const FileUpload = () => {
     name: "file",
     accept: ".txt,.doc,.docx,.pdf",
     multiple: true,
-    action: "http://localhost:5000/upload",
+    action: apiRoutes.upload,
     onChange: handleFileChange,
     onRemove: handleFileRemove,
     onDrop(e) {
