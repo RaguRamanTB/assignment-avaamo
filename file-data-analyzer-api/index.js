@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const fileRoutes = require("./routes/fileRoutes");
+const dataRoutes = require("./routes/dataRoutes");
 
 const app = express();
 require("dotenv").config();
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/files", fileRoutes);
+app.use("/api/data", dataRoutes);
 
 // Connect to MongoDB
 const uri = process.env.MONGODB_URI;

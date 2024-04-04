@@ -10,15 +10,14 @@ module.exports.uploadFile = async (req, res, next) => {
         type: req.file.mimetype,
         path: req.file.path,
       });
-      res.status(201).json({
+      return res.status(201).json({
         message: "File uploaded successfully",
         file,
       });
-    } else {
-      res.status(400).json({
-        message: "File not uploaded",
-      });
     }
+    return res.status(400).json({
+      message: "File not uploaded",
+    });
   } catch (error) {
     next(error);
   }
