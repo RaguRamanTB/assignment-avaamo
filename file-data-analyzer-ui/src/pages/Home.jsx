@@ -54,7 +54,13 @@ const Home = () => {
         </Content>
         <Footer className="footer">
           Crafted with {"\uD83D\uDC9C"} by{" "}
-          <a href="https://github.com/RaguRamanTB">Raguraman</a>
+          <a
+            target="_blank"
+            href="https://github.com/RaguRamanTB"
+            rel="noreferrer"
+          >
+            Raguraman
+          </a>
         </Footer>
       </Layout>
     </Container>
