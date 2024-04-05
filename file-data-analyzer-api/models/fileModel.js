@@ -23,9 +23,9 @@ const fileSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    wordCount: {
+    lastModified: {
       type: Number,
-      required: false,
+      required: true,
     },
     status: {
       type: String,
