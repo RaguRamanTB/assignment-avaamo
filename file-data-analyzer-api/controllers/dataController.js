@@ -1,7 +1,7 @@
 const mammoth = require("mammoth");
+const textract = require("textract");
 const path = require("path");
 const fs = require("fs");
-const stream = require("stream");
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
 
