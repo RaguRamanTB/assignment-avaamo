@@ -2,6 +2,8 @@ const textract = require("textract");
 const mammoth = require("mammoth");
 const path = require("path");
 const fs = require("fs");
+const Analysis = require("../models/analysisModel");
+const File = require("../models/fileModel");
 
 const anaylyseFile = async (filename) => {
   const ext = path.extname(filename);
@@ -50,8 +52,22 @@ module.exports.getAnalysis = async (req, res, next) => {
     const filenames = req.body.filenames;
     const response = {};
     for (const filename of filenames) {
+      const currentFile = await File.findOne({ filename });
+      const existingAnalysis = await Analysis.findOne({
+        originalname: currentFile.originalname,
+        lastModified: currentFile.lastModified,
+      });
+      if (existingAnalysis) {
+        response[filename] = JSON.parse(existingAnalysis.analysisData);
+        continue;
+      }
       const wordCounts = await anaylyseFile(filename);
       response[filename] = wordCounts;
+      await Analysis.create({
+        originalname: currentFile.originalname,
+        lastModified: currentFile.lastModified,
+        analysisData: JSON.stringify(wordCounts),
+      });
     }
     return res.status(200).json({
       message: "Analysis completed successfully",
