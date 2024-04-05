@@ -6,7 +6,6 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { setFiles } from "../reducers/filesSlice";
-import SelectedFiles from "./SelectedFiles";
 import { apiRoutes } from "../utils/apiRoutes";
 
 const { Dragger } = Upload;
@@ -14,7 +13,7 @@ const { Dragger } = Upload;
 const FileUpload = () => {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.files.files);
-  const [fileList, setFileList] = useState([]);
+  const [fileList, setFileList] = useState(files);
 
   const handleFileChange = (info) => {
     const { status } = info.file;
@@ -111,7 +110,7 @@ const FileUpload = () => {
           We currently support .txt, .docx file formats.
         </p>
       </Dragger>
-      <SelectedFiles />
+      {/* <SelectedFiles /> */}
     </Container>
   );
 };
