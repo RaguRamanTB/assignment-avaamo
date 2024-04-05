@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const File = require("../models/fileModel");
 
 module.exports.uploadFile = async (req, res, next) => {
@@ -10,10 +12,8 @@ module.exports.uploadFile = async (req, res, next) => {
       });
 
       if (existingFile) {
-        return res.status(200).json({
-          message: "File already exists",
-          file: existingFile,
-        });
+        fs.unlinkSync(path.join(__dirname, "..", existingFile.path));
+        await File.findByIdAndDelete(existingFile._id);
       }
 
       const file = await File.create({
