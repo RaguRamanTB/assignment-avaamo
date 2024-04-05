@@ -1,7 +1,10 @@
-const textract = require("textract");
 const mammoth = require("mammoth");
 const path = require("path");
 const fs = require("fs");
+const stream = require("stream");
+const PizZip = require("pizzip");
+const Docxtemplater = require("docxtemplater");
+
 const Analysis = require("../models/analysisModel");
 const File = require("../models/fileModel");
 
@@ -80,5 +83,63 @@ module.exports.getAnalysis = async (req, res, next) => {
       errorCode: error.code,
     });
     next(error);
+  }
+};
+
+module.exports.maskData = async (req, res, next) => {
+  try {
+    const { filename, wordsToMask } = req.body;
+    const filePath = path.join(__dirname, "..", "uploads", filename);
+    const fileExtension = path.extname(filename);
+    fs.mkdirSync(path.join(__dirname, "../downloads"), { recursive: true });
+    const outFilePath = path.join(
+      __dirname,
+      "..",
+      "downloads",
+      `masked-${filename}`
+    );
+
+    if (fileExtension === ".txt") {
+      const text = fs.readFileSync(filePath, "utf8");
+      let maskedText = text;
+
+      wordsToMask.forEach((word) => {
+        const regex = new RegExp(`\\b${word}\\b`, "gi");
+        maskedText = maskedText.replace(regex, "****");
+      });
+
+      fs.writeFileSync(outFilePath, maskedText);
+      res.download(outFilePath);
+    } else if (fileExtension === ".docx") {
+      const text = await mammoth.extractRawText({ path: filePath });
+      let maskedText = text.value;
+
+      wordsToMask.forEach((word) => {
+        const regex = new RegExp(`\\b${word}\\b`, "gi");
+        maskedText = maskedText.replace(regex, "****");
+      });
+
+      const templateFilePath = path.resolve(
+        __dirname,
+        "..",
+        "templates",
+        "mask.docx"
+      );
+      const content = fs.readFileSync(templateFilePath, "binary");
+      const zip = new PizZip(content);
+      const doc = new Docxtemplater(zip);
+      doc.render({
+        text: maskedText,
+      });
+
+      const buf = doc.getZip().generate({ type: "nodebuffer" });
+
+      fs.writeFileSync(outFilePath, buf);
+      res.download(outFilePath);
+    } else {
+      throw new Error("The selected file has an unsupported file type");
+    }
+  } catch (err) {
+    next(err);
   }
 };
