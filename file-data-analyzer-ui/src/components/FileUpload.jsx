@@ -69,25 +69,10 @@ const FileUpload = () => {
       .catch(onError);
   };
 
-  const beforeUpload = (file) => {
-    const existingFile = files.find(
-      (f) =>
-        f.name === file.name &&
-        f.lastModified === file.lastModified &&
-        f.size === file.size
-    );
-    if (existingFile) {
-      message.info("File already exists");
-      return false;
-    }
-    return true;
-  };
-
   const props = {
     name: "file",
     accept: ".txt,.docx",
     multiple: true,
-    beforeUpload,
     action: apiRoutes.upload,
     customRequest,
     onChange: handleFileChange,
