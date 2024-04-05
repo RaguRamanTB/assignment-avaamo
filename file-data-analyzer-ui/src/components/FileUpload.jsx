@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
@@ -14,9 +14,23 @@ const { Dragger } = Upload;
 const FileUpload = () => {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.files.files);
+  const [fileList, setFileList] = useState([]);
 
   const handleFileChange = (info) => {
     const { status } = info.file;
+    let newFileList = [...info.fileList];
+
+    newFileList = newFileList.filter(
+      (file, index, self) =>
+        index ===
+        self.findIndex(
+          (f) =>
+            f.name === file.name &&
+            f.size === file.size &&
+            f.lastModified === file.lastModified
+        )
+    );
+    setFileList(newFileList);
     const currentFiles = info.fileList
       .filter((file) => file.status !== "error")
       .map((file) => {
@@ -86,7 +100,7 @@ const FileUpload = () => {
 
   return (
     <Container>
-      <Dragger {...props}>
+      <Dragger {...props} fileList={fileList}>
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
         </p>
