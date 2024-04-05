@@ -96,7 +96,7 @@ module.exports.maskData = async (req, res, next) => {
       __dirname,
       "..",
       "downloads",
-      `masked-${filename}`
+      `m-${Date.now()}-${filename}`
     );
 
     if (fileExtension === ".txt") {
