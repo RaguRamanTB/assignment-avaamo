@@ -26,12 +26,7 @@ const FileAnalyzer = () => {
       if (!files.length) {
         return;
       }
-      if (
-        Object.keys(analysisData).length &&
-        Object.keys(analysisData).every((key) =>
-          files.map((file) => file.response.file.filename).includes(key)
-        )
-      ) {
+      if (files.every((file) => analysisData[file.response.file.filename])) {
         return;
       }
       setLoading(true);
