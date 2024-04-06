@@ -84,7 +84,3 @@ The application consists of a React frontend, a Node.js backend, and a MongoDB d
 ## Deployment
 
 The application is containerized using Docker for easy deployment. You can build and run the Docker containers using Docker Compose with the `docker-compose up` command.
-There are three docker containers:
-1. frontend
-2. backend
-3. database
