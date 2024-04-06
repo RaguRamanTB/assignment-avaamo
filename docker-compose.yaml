@@ -30,7 +30,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - /home/ubuntu/mongo-backup:/data/db # Replace the path with your volume for backup
+      - /root/mongo-backup:/data/db # Replace the path with your volume for backup
     networks:
       - my-network
 
