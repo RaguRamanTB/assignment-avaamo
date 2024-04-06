@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  frontend:
+    build: ./file-data-analyzer-ui
+    container_name: file-data-analyzer-ui
+    restart: always
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    networks:
+      - my-network
+
+  backend:
+    build: ./file-data-analyzer-api
+    container_name: file-data-analyzer-api
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - database
+    networks:
+      - my-network
+
+  database:
+    image: mongo
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - /home/ubuntu/mongo-backup:/data/db # Replace the path with your volume for backup
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge

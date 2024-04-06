@@ -1,0 +1,28 @@
+# Node.js
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Build output
+dist/
+
+# Environment variables
+.env
+
+# File Uploads
+uploads/
+
+# File Downloads
+downloads/
+
+# Testing Documents
+testing_documents/
+
+# IDE files
+.vscode/
+.idea/
+
+# Docker File
+Dockerfile

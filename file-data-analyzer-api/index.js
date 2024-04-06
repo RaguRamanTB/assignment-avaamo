@@ -15,7 +15,7 @@ app.use("/api/files", fileRoutes);
 app.use("/api/data", dataRoutes);
 
 // Connect to MongoDB
-const uri = process.env.MONGODB_URI;
+const uri = "mongodb://mongo-db/file_data_analyzer";
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
