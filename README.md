@@ -34,7 +34,40 @@ Please note that the current deployment is a development build and may not repre
 
 The application consists of a React frontend, a Node.js backend, and a MongoDB database. The frontend communicates with the backend through a REST API, and the backend communicates with the database through Mongoose.
 
-The frontend provides an interface for users to upload files, view file analytics, find word counts, and mask words. The backend handles file uploads, performs file data analysis, interacts with the Yandex Dictionary API to find synonyms, masks words in files, and streams the updated files back to the frontend.
+## System Architecture
+
+![System Architecture](https://url-to-your-image.png)
+
+### Front-End: (file-data-analyzer-ui/)
+
+#### Folder Structure:
+
+1. `src/assets/` - Folder containing the images, lottie animations, and fonts.
+2. `src/components/` - JSX components that are used to render in pages.
+3. `src/pages/` - Main pages rendered for the application.
+4. `src/reducers/` - Redux reducers/slices that are used for the application store.
+5. `src/utils/` - Helpers and API Routes
+
+#### Dependencies:
+
+1. _Ant Design_ - UI Design Library
+2. _Redux Toolkit_ - For application state management.
+3. _Axios_ - For API calls.
+4. _Lottie_ - For animation using lottie files.
+
+### Back-End: (file-data-analyzer-api/)
+
+#### Folder Structure:
+
+1. `controllers/` - API controllers for handling the business logic.
+2. `middlewares/` - Custom middlewares (multer - for file upload).
+3. `models/` - MongoDB models required for the application.
+4. `routes/` - Express routers.
+
+#### Dependencies:
+
+1. _Multer_ - For file upload handling.
+2. _Mammoth, DocxTemplater, PizZip, Textract_ - For file processing (.txt and .docx)
 
 ## Assumptions
 
