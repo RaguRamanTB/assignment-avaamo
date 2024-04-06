@@ -53,7 +53,7 @@ const MeaningFinder = ({ selectedFile }) => {
       <Select
         className="word-select"
         showSearch
-        placeholder="Select a word"
+        placeholder="Select or start typing a word"
         onChange={onChange}
         options={words.map((word) => ({ value: word, label: word }))}
         value={selectedWord}
