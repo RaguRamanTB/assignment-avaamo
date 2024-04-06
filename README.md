@@ -34,9 +34,9 @@ Please note that the current deployment is a development build and may not repre
 
 The application consists of a React frontend, a Node.js backend, and a MongoDB database. The frontend communicates with the backend through a REST API, and the backend communicates with the database through Mongoose.
 
-## System Architecture
+### Flow Diagram
 
-![System Architecture](https://url-to-your-image.png)
+![FlowDiagram](https://github.com/RaguRamanTB/assignment-avaamo/assets/41372762/be79d0f6-e923-4b45-b6fd-8add2acbdfe4)
 
 ### Front-End: (file-data-analyzer-ui/)
 
@@ -84,3 +84,5 @@ The application consists of a React frontend, a Node.js backend, and a MongoDB d
 ## Deployment
 
 The application is containerized using Docker for easy deployment. You can build and run the Docker containers using Docker Compose with the `docker-compose up` command.
+
+![Deployment](https://github.com/RaguRamanTB/assignment-avaamo/assets/41372762/49c13c39-5b73-4632-8c2f-6513f9413f4f)
