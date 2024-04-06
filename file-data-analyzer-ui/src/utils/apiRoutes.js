@@ -1,4 +1,4 @@
-export const host = "http://file-data-analyzer-api:5000";
+export const host = "http://139.59.8.244:5000";
 export const apiRoutes = {
   upload: `${host}/api/files/upload`,
   getAnalysis: `${host}/api/data/getAnalysis`,
