@@ -2,6 +2,7 @@ services:
   frontend:
     build: ./file-data-analyzer-ui
     container_name: file-data-analyzer-ui
+    cpus: 2
     restart: always
     ports:
       - "3000:3000"
