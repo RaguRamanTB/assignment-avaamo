@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Lottie from "react-lottie";
 import styled from "styled-components";
-import { Select, message } from "antd";
+import { Select, message, Divider } from "antd";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
@@ -11,6 +11,7 @@ import analyzing from "../assets/lottie/analyzing.json";
 import DataTable from "./DataTable";
 import { apiRoutes } from "../utils/apiRoutes";
 import { setAnalysisData } from "../reducers/analyticsSlice";
+import MeaningFinder from "./MeaningFinder";
 
 const FileAnalyzer = () => {
   const files = useSelector((state) => state.files.files);
@@ -110,8 +111,14 @@ const FileAnalyzer = () => {
               <p>{fileSize} bytes</p>
             </div>
           </div>
+          <Divider />
           <div className="file-analyzer-content">
-            <DataTable selectedFile={selectedFile} />
+            <div className="meaning-finder">
+              <MeaningFinder selectedFile={selectedFile} />
+            </div>
+            <div className="data-table" style={{ maxWidth: "75%" }}>
+              <DataTable selectedFile={selectedFile} />
+            </div>
           </div>
         </AnalyzerContainer>
       )}
@@ -161,7 +168,17 @@ const AnalyzerContainer = styled.div`
     }
   }
   .file-analyzer-content {
+    display: flex;
+    flex-direction: row;
     margin-top: 1rem;
+    .meaning-finder {
+      flex: 1;
+      margin: 0 0.5rem;
+    }
+    .data-table {
+      flex: 3;
+      margin: 0 0.5rem;
+    }
   }
 `;
 
