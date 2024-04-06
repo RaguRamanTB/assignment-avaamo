@@ -19,6 +19,8 @@ const FileAnalyzer = () => {
   const [selectedFile, setSelectedFile] = useState(
     files[0]?.response.file.filename
   );
+  const [fileSize, setFileSize] = useState(files[0]?.size);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -64,6 +66,9 @@ const FileAnalyzer = () => {
 
   const onChange = (value) => {
     setSelectedFile(value);
+    setFileSize(
+      files.find((file) => file.response.file.filename === value).size
+    );
   };
 
   const filterOption = (input, option) =>
@@ -100,6 +105,10 @@ const FileAnalyzer = () => {
                 label: file.name,
               }))}
             />
+            <div className="file-size">
+              <h3>Size: </h3>
+              <p>{fileSize} bytes</p>
+            </div>
           </div>
           <div className="file-analyzer-content">
             <DataTable selectedFile={selectedFile} />
@@ -140,6 +149,15 @@ const AnalyzerContainer = styled.div`
       width: 100%;
       max-width: 40rem;
       margin-left: 1rem;
+    }
+    .file-size {
+      display: flex;
+      align-items: baseline;
+      margin-left: 1rem;
+      p {
+        font-size: 1rem;
+        margin-left: 0.5rem;
+      }
     }
   }
   .file-analyzer-content {
