@@ -33,7 +33,7 @@ services:
       - /root/mongo-backup:/data/db # Replace the path with your volume for backup
     networks:
       - my-network
-    command: mongod --bind_ip localhost, 139.59.8.244
+    command: mongod --bind_ip 139.59.8.244
 
 networks:
   my-network:
